@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  db:
+    image: mysql:8
+    volumes:
+      - ./mysql:/var/lib/mysql
+    env_file:
+      - ../../drf/project-28042024/.env
+    ports:
+      - "3308:3306"
+    restart: on-failure

@@ -1,19 +1,19 @@
 from rest_framework.generics import GenericAPIView, ListAPIView, ListCreateAPIView, RetrieveUpdateAPIView
-from rest_framework.response import Response
 
-from apps.cars.models import CarModel
-from apps.cars.serializers import CarSerializer
-
-from .filters import car_filter
+from .filters import CarFilter
+from .models import CarModel
+from .serializers import CarSerializer
 
 
 class CarListView(ListAPIView):
-    # queryset = CarModel.objects.all()
     serializer_class = CarSerializer
+    # pagination_class = PagePagination
+    queryset = CarModel.objects.all()
+    filterset_class = CarFilter
 
-    def get_queryset(self):
-        # filter
-        return car_filter(self.request.query_params.dict())
+    # def get_queryset(self):
+    #     # filter
+    #     return car_filter(self.request.query_params.dict())
 
 
 class CarRetrieveUpdateDestroyView(RetrieveUpdateAPIView):
